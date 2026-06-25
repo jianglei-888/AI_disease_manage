@@ -1,0 +1,56 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="avatar">
+      <image class="avatar-image" src="/images/head.png" mode="aspectFill"></image>
+    </view>
+    <view class="user-info">
+      <text class="username">{{userInfo && userInfo.username ? userInfo.username : '未登录'}}</text>
+      <text class="email">{{userInfo && userInfo.email ? userInfo.email : ''}}</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="function-list">
+    <view class="function-item" bindtap="handlePersonalInfo">
+      <text class="function-icon">👤</text>
+      <text class="function-text">个人信息</text>
+      <text class="arrow">＞</text>
+    </view>
+    <view class="function-item" bindtap="handleHistory">
+      <text class="function-icon">📋</text>
+      <text class="function-text">历史记录</text>
+      <text class="arrow">＞</text>
+    </view>
+    <view class="function-item" bindtap="handleNotification">
+      <text class="function-icon">🔔</text>
+      <text class="function-text">通知设置</text>
+      <text class="arrow">＞</text>
+    </view>
+  </view>
+
+  <!-- 其他信息 -->
+  <view class="function-list">
+    <view class="function-item" bindtap="handleDisclaimer">
+      <text class="function-icon">📄</text>
+      <text class="function-text">免责声明</text>
+      <text class="arrow">＞</text>
+    </view>
+    <view class="function-item" bindtap="handlePrivacy">
+      <text class="function-icon">🔒</text>
+      <text class="function-text">隐私政策</text>
+      <text class="arrow">＞</text>
+    </view>
+    <view class="function-item" bindtap="handleAbout">
+      <text class="function-icon">ℹ️</text>
+      <text class="function-text">关于我们</text>
+      <text class="arrow">＞</text>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <button class="logout-btn" bindtap="handleLogout">退出登录</button>
+
+  <!-- 版本信息 -->
+  <text class="version">版本 2.1.12</text>
+</view>

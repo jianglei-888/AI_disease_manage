@@ -1,0 +1,34 @@
+<view class="container">
+  <!-- 聊天消息列表 -->
+  <scroll-view class="message-list" scroll-y="true" scroll-top="{{scrollTop}}">
+    <view 
+      wx:for="{{messages}}" 
+      wx:key="id"
+      class="message-item {{item.role === 'user' ? 'user-message' : 'ai-message'}}"
+    >
+      <!-- 头像 -->
+      <image class="avatar" src="{{item.role === 'ai' ? '/images/doctor.png' : '/images/head.png'}}" mode="aspectFill"></image>
+      
+      <view class="message-bubble">
+        <text class="message-content">{{item.message}}</text>
+        <text class="message-time">{{item.created_at}}</text>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="loading">
+      <text>AI正在思考...</text>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <input 
+      class="input" 
+      placeholder="输入您的健康问题..." 
+      bindinput="bindMessageInput"
+      value="{{inputMessage}}"
+    />
+    <button class="send-btn" bindtap="handleSendMessage" >
+      发送
+    </button>
+  </view>
+</view>

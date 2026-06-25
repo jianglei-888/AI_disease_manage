@@ -1,0 +1,57 @@
+# AI 慢性病管理 - 本地一键启动
+#
+# 启动：docker-compose up -d
+# 查看日志：docker-compose logs -f backend
+# 停止：docker-compose down
+#
+# ⚠️ Milvus 部署在外部虚拟机（地址见 .env 的 MILVUS_URI），不在本 compose 内启动。
+#    仅 MySQL + backend 由本 compose 拉起。
+
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: disease-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: diease
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: disease-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # docker 内连接覆盖 .env 里的 127.0.0.1
+      DATABASE_URL: mysql://root:${MYSQL_ROOT_PASSWORD:-root}@mysql:3306/diease
+      # 嵌入走 DashScope 云端 API，无需本地服务映射
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+
+volumes:
+  mysql_data:

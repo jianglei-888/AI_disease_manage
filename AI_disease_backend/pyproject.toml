@@ -1,0 +1,4 @@
+[tool.aerich]
+migrations_folder = "migrations"
+app = "app"
+models = ["app.models.user", "app.models.health", "app.models.chat", "app.models.personal_info"]

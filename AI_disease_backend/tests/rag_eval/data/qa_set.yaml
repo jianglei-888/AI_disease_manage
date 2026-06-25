@@ -1,0 +1,181 @@
+version: "1.0"
+description: "医疗 RAG 评估集 v1（20 条）。覆盖高血压 / 冠心病 / 降糖 / 拒答 / 边界。"
+# 每条字段：
+#   id:           唯一编号
+#   category:     high_bp | chd | diabetes | refuse | edge
+#   question:     用户问句
+#   reference:    标准答案（医疗权威表述，人工写）
+#   must_hit:     期望检索命中的关键字列表（任意一条命中即算召回）
+#   source:       期望命中的 source 字段值（库里的真实字符串）
+#   expect_refuse: 是否期望模型拒答
+#   difficulty:   easy | medium | hard
+
+items:
+  # ============ 高血压（6 条）============
+  - id: "q01"
+    category: "high_bp"
+    question: "嘉瑟宜是什么药？通用名是什么？"
+    reference: "嘉瑟宜是缬沙坦片的商品名，属于 ARB 类降压药，适用于高血压。"
+    must_hit: ["嘉瑟宜", "缬沙坦"]
+    source: "高血压药.xlsx"
+    difficulty: "easy"
+
+  - id: "q02"
+    category: "high_bp"
+    question: "高血压用药期间需要定期监测哪些指标？"
+    reference: "需定期监测血压、肝肾功能、电解质，注意不良反应如干咳、水肿、低血钾。"
+    must_hit: ["血压", "监测", "不良反应"]
+    source: "test_knowledge.md"
+    difficulty: "medium"
+
+  - id: "q03"
+    category: "high_bp"
+    question: "ACEI 类降压药最常见的副作用是什么？哪些人禁用？"
+    reference: "ACEI 类（如卡托普利）常见副作用是干咳。高钾血症、双侧肾动脉狭窄、孕妇禁用。"
+    must_hit: ["干咳", "ACEI", "禁用"]
+    source: "高血压药.xlsx"
+    difficulty: "easy"
+
+  - id: "q04"
+    category: "high_bp"
+    question: "高血压合并糖尿病首选什么降压药？为什么？"
+    reference: "首选 ACEI 或 ARB 类（如缬沙坦、卡托普利），具有保护肾功能、降低糖尿病肾损害的作用。"
+    must_hit: ["ACEI", "ARB", "肾", "首选"]
+    source: "test_knowledge.md"
+    difficulty: "medium"
+
+  - id: "q05"
+    category: "high_bp"
+    question: "β 受体阻滞剂（如倍他乐克）什么时候禁用？"
+    reference: "哮喘、严重心动过缓、房室传导阻滞患者禁用；不可突然停药。"
+    must_hit: ["哮喘", "心动过缓", "禁用"]
+    source: "高血压药.xlsx"
+    difficulty: "medium"
+
+  - id: "q06"
+    category: "high_bp"
+    question: "高血压患者每日盐摄入量应控制在多少以下？饮食上还要注意什么？"
+    reference: "每日钠盐摄入应 < 5 克；多吃蔬菜水果，少吃高脂肪高胆固醇食物，戒烟限酒。"
+    must_hit: ["5", "盐", "饮食"]
+    source: "test_knowledge.md"
+    difficulty: "hard"
+
+  # ============ 冠心病（5 条）============
+  - id: "q07"
+    category: "chd"
+    question: "冠心病的基础用药是什么？怎么服用？"
+    reference: "抗血小板药物是冠心病基础用药，如阿司匹林肠溶片 100mg/日，晨起空腹服用。"
+    must_hit: ["阿司匹林", "抗血小板", "冠心病"]
+    source: "uploads/冠心病常用药物信息表.pdf"
+    difficulty: "easy"
+
+  - id: "q08"
+    category: "chd"
+    question: "急性心绞痛发作时怎么急救？"
+    reference: "舌下含服硝酸甘油 0.5mg，5 分钟未缓解可再含 1 片，最多 3 片；起效 1~2 分钟。"
+    must_hit: ["硝酸甘油", "舌下含服", "心绞痛"]
+    source: "uploads/冠心病常用药物信息表.pdf"
+    difficulty: "medium"
+
+  - id: "q09"
+    category: "chd"
+    question: "冠心病患者为什么要服用他汀类药物？什么时候服用效果最好？"
+    reference: "他汀类可降低胆固醇、稳定冠脉斑块、预防心肌梗死；建议晚餐后或夜间服用效果更佳。"
+    must_hit: ["他汀", "斑块", "晚餐"]
+    source: "uploads/冠心病常用药物信息表.pdf"
+    difficulty: "medium"
+
+  - id: "q10"
+    category: "chd"
+    question: "冠心病双联抗血小板治疗一般持续多长时间？"
+    reference: "急性冠脉综合征或支架术后，阿司匹林+氯吡格雷/替格瑞洛双联抗血小板治疗一般持续 12 个月。"
+    must_hit: ["双联", "12", "个月"]
+    source: "uploads/冠心病常用药物信息表.pdf"
+    difficulty: "medium"
+
+  - id: "q11"
+    category: "chd"
+    question: "冠心病患者用药期间出现牙龈出血、黑便怎么办？"
+    reference: "可能提示抗血小板药物引起出血，应立即就医，不可擅自停药。"
+    must_hit: ["出血", "就医", "抗血小板"]
+    source: "uploads/冠心病常用药物信息表.pdf"
+    difficulty: "hard"
+
+  # ============ 降糖药（5 条）============
+  - id: "q12"
+    category: "diabetes"
+    question: "二甲双胍最常见的不良反应是什么？"
+    reference: "常见胃肠道反应（恶心、腹泻），建议餐时或餐后服用以减轻。"
+    must_hit: ["二甲双胍", "胃", "恶心"]
+    source: "uploads/常用降血糖药物信息表.docx"
+    difficulty: "easy"
+
+  - id: "q13"
+    category: "diabetes"
+    question: "SGLT-2 抑制剂（如达格列净）有什么额外的好处？"
+    reference: "SGLT-2 抑制剂除降糖外还有心肾保护作用，适合合并心衰或慢性肾病的糖尿病患者。"
+    must_hit: ["SGLT", "心", "肾"]
+    source: "uploads/常用降血糖药物信息表.docx"
+    difficulty: "medium"
+
+  - id: "q14"
+    category: "diabetes"
+    question: "磺脲类降糖药（如格列美脲）有什么使用风险？"
+    reference: "磺脲类容易引起低血糖，老年患者起始剂量应偏低。"
+    must_hit: ["低血糖", "磺脲", "老年"]
+    source: "uploads/常用降血糖药物信息表.docx"
+    difficulty: "medium"
+
+  - id: "q15"
+    category: "diabetes"
+    question: "司美格鲁肽是什么药？怎么用？"
+    reference: "司美格鲁肽是 GLP-1 受体激动剂，皮下注射；起始 0.25mg/周，4 周后可加至 0.5mg/周，最大 1.0mg/周。"
+    must_hit: ["司美格鲁肽", "GLP", "皮下注射"]
+    source: "uploads/常用降血糖药物信息表.docx"
+    difficulty: "medium"
+
+  - id: "q16"
+    category: "diabetes"
+    question: "二甲双胍在肾功能不全时还能用吗？"
+    reference: "肾功能不全（eGFR<45ml/min）患者应慎用或禁用二甲双胍，避免乳酸酸中毒。"
+    must_hit: ["二甲双胍", "肾功能", "eGFR"]
+    source: "uploads/常用降血糖药物信息表.docx"
+    difficulty: "hard"
+
+  # ============ 拒答（库外问题，3 条）============
+  - id: "q17"
+    category: "refuse"
+    question: "新冠吃什么药最快好？"
+    reference: ""
+    must_hit: []
+    source: ""
+    expect_refuse: true
+    difficulty: "hard"
+
+  - id: "q18"
+    category: "refuse"
+    question: "肺癌靶向药有哪些？"
+    reference: ""
+    must_hit: []
+    source: ""
+    expect_refuse: true
+    difficulty: "hard"
+
+  - id: "q19"
+    category: "refuse"
+    question: "癫痫大发作怎么急救？"
+    reference: ""
+    must_hit: []
+    source: ""
+    expect_refuse: true
+    difficulty: "medium"
+
+  # ============ 边界（跑题，1 条）============
+  - id: "q20"
+    category: "edge"
+    question: "你们医院的地址在哪里？"
+    reference: ""
+    must_hit: []
+    source: ""
+    expect_refuse: true
+    difficulty: "medium"

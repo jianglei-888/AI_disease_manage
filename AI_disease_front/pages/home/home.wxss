@@ -1,0 +1,157 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+/* 健康数据卡片 */
+.health-card {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.health-data {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.data-item {
+  flex: 1;
+  text-align: center;
+}
+
+.data-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.data-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #4facfe;
+  margin-bottom: 5rpx;
+}
+
+.data-unit {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.data-divider {
+  width: 2rpx;
+  height: 80rpx;
+  background-color: #e5e5e5;
+  margin: 0 30rpx;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.last-updated {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.update-btn {
+  font-size: 24rpx;
+  color: #4facfe;
+  padding: 8rpx 20rpx;
+  border: 2rpx solid #4facfe;
+  border-radius: 15rpx;
+}
+
+/* 快捷操作 */
+.quick-actions {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.action-item {
+  flex: 1;
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-right: 10rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.action-item:last-child {
+  margin-right: 0;
+}
+
+.action-icon {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: #4facfe;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15rpx;
+}
+
+.icon {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: #333;
+}
+
+/* 建议卡片 */
+.advice-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.advice-card {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.advice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.advice-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.advice-icon {
+  font-size: 36rpx;
+}
+
+.advice-content {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}

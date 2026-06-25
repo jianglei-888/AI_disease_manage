@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 慢性病管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .app-container {
+            width: 393px;
+            height: 852px;
+            background-color: #ffffff;
+            border-radius: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .header .back-btn {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .content {
+            padding: 20px;
+            height: calc(100% - 130px);
+            overflow-y: auto;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .user-email {
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .menu-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .menu-item .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+        }
+        
+        .menu-item .menu-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-item .menu-title {
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .menu-item .menu-arrow {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .logout-btn {
+            width: 100%;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+        
+        .tabbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        .tab-item.active i {
+            color: #4facfe;
+        }
+        
+        .tab-item span {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .tab-item.active span {
+            color: #4facfe;
+        }
+        
+        /* 滚动条样式 */
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        
+        .content::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="back-btn" onclick="window.location.href='home.html'">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h1>个人中心</h1>
+            <div style="width: 20px;"></div>
+        </div>
+        
+        <div class="content">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">张三</div>
+                    <div class="user-email">zhangsan@example.com</div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #e3f2fd; color: #2196f3;">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <div class="menu-title">账号设置</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #e8f5e9; color: #4caf50;">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="menu-title">历史记录</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #fff3e0; color: #ff9800;">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="menu-title">通知设置</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #f3e5f5; color: #9c27b0;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="menu-title">免责声明</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #e0f7fa; color: #00acc1;">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="menu-title">隐私政策</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <div class="icon" style="background-color: #fff8e1; color: #ffc107;">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="menu-title">关于我们</div>
+                    </div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="logout-btn">退出登录</button>
+        </div>
+        
+        <div class="tabbar">
+            <div class="tab-item">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-edit"></i>
+                <span>提交</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-comment"></i>
+                <span>聊天</span>
+            </div>
+            <div class="tab-item active">
+                <i class="fas fa-user"></i>
+                <span>个人</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 模拟点击事件
+        document.querySelectorAll('.tab-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.tab-item').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                // 添加当前active类
+                this.classList.add('active');
+                
+                // 模拟页面跳转
+                const tabText = this.querySelector('span').textContent;
+                if (tabText === '首页') {
+                    window.location.href = 'home.html';
+                } else if (tabText === '提交') {
+                    window.location.href = 'submit.html';
+                } else if (tabText === '聊天') {
+                    window.location.href = 'chat.html';
+                }
+            });
+        });
+        
+        // 菜单项点击事件
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.menu-title').textContent;
+                alert(`您点击了：${title}`);
+            });
+        });
+        
+        // 退出登录按钮点击事件
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            if (confirm('确定要退出登录吗？')) {
+                alert('退出登录成功！');
+                // 这里可以跳转到登录页面
+            }
+        });
+    </script>
+</body>
+</html>

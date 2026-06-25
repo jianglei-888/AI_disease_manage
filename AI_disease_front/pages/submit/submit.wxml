@@ -1,0 +1,65 @@
+<view class="container">
+  <view class="form-container">
+    <view class="form-title">提交健康数据</view>
+
+    <!-- 血压输入 -->
+    <view class="form-section">
+      <view class="section-title">血压</view>
+      <view class="blood-pressure">
+        <view class="input-group">
+          <input 
+            class="input" 
+            placeholder="收缩压（高压）" 
+            type="number" 
+            bindinput="bindSystolicInput"
+            value="{{systolic}}"
+          />
+          <text class="unit">mmHg</text>
+        </view>
+        <view class="separator">/</view>
+        <view class="input-group">
+          <input 
+            class="input" 
+            placeholder="舒张压（低压）" 
+            type="number" 
+            bindinput="bindDiastolicInput"
+            value="{{diastolic}}"
+          />
+          <text class="unit">mmHg</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 血糖输入 -->
+    <view class="form-section">
+      <view class="section-title">血糖</view>
+      <view class="input-group">
+        <input 
+          class="input" 
+          placeholder="血糖值" 
+          type="number" 
+          bindinput="bindBloodSugarInput"
+          value="{{bloodSugar}}"
+        />
+        <text class="unit">mmol/L</text>
+      </view>
+    </view>
+
+    <!-- 测量时间 -->
+    <view class="form-section">
+      <view class="section-title">测量时间</view>
+      <view class="time-picker" bindtap="openTimePicker">
+        <text class="time-text">{{measuredAt || '请选择测量时间'}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="handleSubmit">提交数据</button>
+
+    <!-- 状态提示 -->
+    <view class="status-tip" wx:if="{{statusTip}}">
+      <text class="status-text">{{statusTip}}</text>
+    </view>
+  </view>
+</view>

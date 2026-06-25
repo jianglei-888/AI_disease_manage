@@ -1,0 +1,64 @@
+<view class="container">
+  <!-- 今日健康数据卡片 -->
+  <view class="health-card">
+    <view class="card-title">今日健康数据</view>
+    <view class="health-data">
+      <view class="data-item">
+        <view class="data-label">血压</view>
+        <view class="data-value">{{latestRecord ? latestRecord.systolic : ''}}/{{latestRecord ? latestRecord.diastolic : ''}}</view>
+        <view class="data-unit">mmHg</view>
+      </view>
+      <view class="data-divider"></view>
+      <view class="data-item">
+        <view class="data-label">血糖</view>
+        <view class="data-value">{{latestRecord ? latestRecord.blood_sugar : ''}}</view>
+        <view class="data-unit">mmol/L</view>
+      </view>
+    </view>
+    <view class="card-footer">
+      <text class="last-updated">{{latestRecord ? '最后更新: ' + (latestRecord.formattedTime || latestRecord.measured_at) : '暂无数据'}}</text>
+      <navigator url="/pages/analysis/analysis" class="update-btn">慢性病分析</navigator>
+    </view>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <navigator url="/pages/submit/submit" class="action-item" open-type="switchTab">
+      <view class="action-icon">
+        <text class="icon">+</text>
+      </view>
+      <text class="action-text">添加记录</text>
+    </navigator>
+    <navigator url="/pages/chat/chat" class="action-item" open-type="switchTab">
+      <view class="action-icon">
+        <text class="icon">💬</text>
+      </view>
+      <text class="action-text">健康咨询</text>
+    </navigator>
+  </view>
+
+  <!-- 建议卡片 -->
+  <view class="advice-cards">
+    <!-- 饮食建议 -->
+    <view class="advice-card">
+      <view class="advice-header">
+        <text class="advice-title">饮食建议</text>
+        <text class="advice-icon">🍎</text>
+      </view>
+      <view class="advice-content">
+        <text>{{dietAdvice || '保持均衡饮食，多吃蔬菜水果，控制盐分和糖分摄入'}}</text>
+      </view>
+    </view>
+
+    <!-- 运动建议 -->
+    <view class="advice-card">
+      <view class="advice-header">
+        <text class="advice-title">运动建议</text>
+        <text class="advice-icon">🏃</text>
+      </view>
+      <view class="advice-content">
+        <text>{{exerciseAdvice || '建议每天进行30分钟中等强度运动，如散步、太极拳等'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

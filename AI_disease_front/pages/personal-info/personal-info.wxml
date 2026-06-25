@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="form-container">
+    <!-- 姓名 -->
+    <view class="form-item">
+      <text class="label">姓名</text>
+      <input class="input" placeholder="请输入姓名" value="{{personalInfo.name}}" bindinput="bindNameInput" />
+    </view>
+
+    <!-- 性别 -->
+    <view class="form-item">
+      <text class="label">性别</text>
+      <view class="gender-selector">
+        <view class="gender-option {{personalInfo.gender === '男' ? 'selected' : ''}}" bindtap="handleGenderSelect" data-gender="男">
+          <text>男</text>
+        </view>
+        <view class="gender-option {{personalInfo.gender === '女' ? 'selected' : ''}}" bindtap="handleGenderSelect" data-gender="女">
+          <text>女</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 年龄 -->
+    <view class="form-item">
+      <text class="label">年龄</text>
+      <input class="input" placeholder="请输入年龄" type="number" value="{{personalInfo.age}}" bindinput="bindAgeInput" />
+    </view>
+
+    <!-- 用药历史 -->
+    <view class="form-item">
+      <text class="label">用药历史</text>
+      <textarea class="textarea" placeholder="请输入用药历史" value="{{personalInfo.medicationHistory}}" bindinput="bindMedicationHistoryInput" />
+    </view>
+
+    <!-- 用药禁忌 -->
+    <view class="form-item">
+      <text class="label">用药禁忌</text>
+      <textarea class="textarea" placeholder="请输入用药禁忌" value="{{personalInfo.medicationContraindications}}" bindinput="bindMedicationContraindicationsInput" />
+    </view>
+    <text class="save" bindtap="handleSave">保存</text>
+  </view>
+
+  <!-- 状态提示 -->
+  <view class="status-tip" wx:if="{{statusTip}}">
+    <text class="status-text">{{statusTip}}</text>
+  </view>
+</view>

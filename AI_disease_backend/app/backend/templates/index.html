@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>医疗知识库管理</title>
+    <style>
+        body{max-width:900px;margin:30px auto;padding:20px;font-family:Microsoft YaHei}
+        .box{padding:25px;border-radius:12px;border:1px solid #eee;margin:20px 0;box-shadow:0 2px 10px #00000005}
+        button{background:#2385bb;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer}
+        input[type=text]{width:80%;padding:10px;border:1px solid #ddd;border-radius:6px}
+        input[type=file]{padding:5px}
+        .success{color:#07a11e;padding:15px;background:#f8fff9;border-radius:8px}
+        .error{color:#e23a3a;padding:15px;background:#fff5f5;border-radius:8px}
+        .warn{color:#a17e07;padding:15px;background:#fffdf5;border-radius:8px;margin:15px 0}
+    </style>
+</head>
+<body>
+    <h1>🏥 医疗知识库管理（仅限内部使用）</h1>
+
+    <div class="warn">
+        ⚠️ 该页面用于往 Milvus 向量库灌入医疗知识文档，<strong>不要暴露给终端用户</strong>。
+    </div>
+
+    {% if msg %}
+    <div class="success">{{ msg }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="box">
+        <h3>📁 上传医疗文档</h3>
+        <form action="/v1/backend/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".pdf,.txt,.md,.docx,.xlsx,.csv" required>
+            <button type="submit">上传并入库</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h3>🔍 医疗知识问答</h3>
+        <form action="/v1/backend/search" method="post">
+            <input type="text" name="question" placeholder="请输入医疗问题..." required>
+            <button type="submit">查询回答</button>
+        </form>
+    </div>
+</body>
+</html>

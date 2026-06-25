@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康咨询 - 慢性病管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .app-container {
+            width: 393px;
+            height: 852px;
+            background-color: #ffffff;
+            border-radius: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .header .back-btn {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .chat-container {
+            height: calc(100% - 190px);
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+        }
+        
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message.ai {
+            justify-content: flex-start;
+        }
+        
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 8px;
+        }
+        
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .message.user .message-avatar {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .message.ai .message-content {
+            background-color: white;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message.user .message-content {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: #999;
+            margin: 0 8px;
+        }
+        
+        .input-container {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 12px 20px;
+            background-color: white;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+            resize: none;
+            min-height: 40px;
+            max-height: 100px;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.1);
+        }
+        
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .tabbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        .tab-item.active i {
+            color: #4facfe;
+        }
+        
+        .tab-item span {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .tab-item.active span {
+            color: #4facfe;
+        }
+        
+        /* 滚动条样式 */
+        .chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .chat-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="back-btn" onclick="window.location.href='home.html'">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h1>健康咨询</h1>
+            <div style="width: 20px;"></div>
+        </div>
+        
+        <div class="chat-container">
+            <div class="message ai">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    您好！我是您的健康助手，有什么可以帮您的吗？
+                </div>
+                <div class="message-time">08:30</div>
+            </div>
+            
+            <div class="message user">
+                <div class="message-time">08:31</div>
+                <div class="message-content">
+                    我的血压有点高，应该注意什么？
+                </div>
+                <div class="message-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <div class="message ai">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    血压高的话，建议您：1. 减少盐分摄入，每天不超过5克；2. 保持规律运动，每周至少150分钟中等强度运动；3. 保持健康饮食，多吃蔬菜水果；4. 定期监测血压；5. 按医嘱服药。
+                </div>
+                <div class="message-time">08:32</div>
+            </div>
+            
+            <div class="message user">
+                <div class="message-time">08:33</div>
+                <div class="message-content">
+                    那血糖高应该怎么控制？
+                </div>
+                <div class="message-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <div class="message ai">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    血糖高的控制方法：1. 控制碳水化合物摄入，选择低GI食物；2. 规律运动，帮助降低血糖；3. 定期监测血糖；4. 保持健康体重；5. 按医嘱服药或注射胰岛素。
+                </div>
+                <div class="message-time">08:34</div>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea class="chat-input" placeholder="请输入您的问题..."></textarea>
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tabbar">
+            <div class="tab-item">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-edit"></i>
+                <span>提交</span>
+            </div>
+            <div class="tab-item active">
+                <i class="fas fa-comment"></i>
+                <span>聊天</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-user"></i>
+                <span>个人</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 模拟点击事件
+        document.querySelectorAll('.tab-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.tab-item').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                // 添加当前active类
+                this.classList.add('active');
+                
+                // 模拟页面跳转
+                const tabText = this.querySelector('span').textContent;
+                if (tabText === '首页') {
+                    window.location.href = 'home.html';
+                } else if (tabText === '提交') {
+                    window.location.href = 'submit.html';
+                } else if (tabText === '个人') {
+                    window.location.href = 'profile.html';
+                }
+            });
+        });
+        
+        // 发送消息
+        document.querySelector('.send-btn').addEventListener('click', function() {
+            const input = document.querySelector('.chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatContainer = document.querySelector('.chat-container');
+                
+                // 添加用户消息
+                const now = new Date();
+                const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+                
+                const userMessageHTML = `
+                    <div class="message user">
+                        <div class="message-time">${time}</div>
+                        <div class="message-content">
+                            ${message}
+                        </div>
+                        <div class="message-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                `;
+                
+                chatContainer.insertAdjacentHTML('beforeend', userMessageHTML);
+                input.value = '';
+                
+                // 滚动到底部
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // 模拟AI回复
+                setTimeout(() => {
+                    const aiMessageHTML = `
+                        <div class="message ai">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                感谢您的咨询，我会为您提供专业的健康建议。
+                            </div>
+                            <div class="message-time">${time}</div>
+                        </div>
+                    `;
+                    
+                    chatContainer.insertAdjacentHTML('beforeend', aiMessageHTML);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 1000);
+            }
+        });
+        
+        // 回车键发送
+        document.querySelector('.chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.querySelector('.send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

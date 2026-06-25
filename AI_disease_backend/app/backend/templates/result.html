@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>查询结果</title>
+    <style>
+        body{max-width:900px;margin:30px auto;padding:20px;font-family:Microsoft YaHei}
+        .box{padding:25px;border-radius:12px;border:1px solid #eee;box-shadow:0 2px 10px #00000005}
+        .answer{background:#f2f9ff;padding:20px;border-radius:10px;margin:15px 0}
+        a{color:#2385bb;text-decoration:none}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🔍 查询结果</h2>
+        <p><strong>问题：</strong>{{ question }}</p>
+        <div class="answer">
+            <strong>医疗助手：</strong><br>{{ answer }}
+        </div>
+        <br>
+        <a href="/v1/backend/">← 返回继续提问</a>
+    </div>
+</body>
+</html>

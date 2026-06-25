@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI换背景</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .settings-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .progress-btn {
+            margin: 20px;
+            padding: 12px;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .progress-btn button {
+            background-color: #1890ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .upload-section {
+            margin: 0 20px 20px;
+            padding: 40px 20px;
+            border: 2px dashed #d9d9d9;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #e6f7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        
+        .upload-icon img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .upload-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .upload-subtext {
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .background-section {
+            margin: 0 20px 20px;
+        }
+        
+        .background-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .background-upload {
+            border: 2px dashed #d9d9d9;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .background-upload-btn {
+            width: 60px;
+            height: 60px;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .background-upload-btn img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .background-tip {
+            flex: 1;
+            margin-left: 16px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .background-tip i {
+            color: #1890ff;
+            margin-right: 4px;
+        }
+        
+        .start-btn {
+            margin: 20px;
+        }
+        
+        .start-btn button {
+            width: 100%;
+            background-color: #1890ff;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 414px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer-item.active {
+            color: #1890ff;
+        }
+        
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI换背景</h1>
+            <div class="settings-icon"></div>
+        </div>
+        
+        <div class="progress-btn">
+            <button>查看任务进度</button>
+        </div>
+        
+        <div class="upload-section">
+            <div class="upload-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1890ff" width="40" height="40">
+                    <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    <path d="M12 14a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8 8 8 0 0 1 8 8h-2a6 6 0 0 0-6-6z"/>
+                </svg>
+            </div>
+            <div class="upload-text">上传视频</div>
+            <div class="upload-subtext">(30秒内)</div>
+        </div>
+        
+        <div class="background-section">
+            <h2>选择背景素材</h2>
+            <div class="background-upload">
+                <div class="background-upload-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1890ff" width="30" height="30">
+                        <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                        <path d="M12 14a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8 8 8 0 0 1 8 8h-2a6 6 0 0 0-6-6z"/>
+                    </svg>
+                </div>
+                <div class="background-tip">
+                    <i>i</i> 请上传背景图，可以传纯色背景
+                </div>
+            </div>
+        </div>
+        
+        <div class="start-btn">
+            <button>开始换背景</button>
+        </div>
+        
+        <div style="height: 80px;"></div>
+        
+        <div class="footer">
+            <div class="footer-item active">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </div>
+                <span>首页</span>
+            </div>
+            <div class="footer-item">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                </div>
+                <span>任务</span>
+            </div>
+            <div class="footer-item">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <polygon points="23,7 16,12 23,17 23,7"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                </div>
+                <span>视频</span>
+            </div>
+            <div class="footer-item">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M17.5,19H7.5C6.75,19,6,18.25,6,17.5V6.5C6,5.75,6.75,5,7.5,5H17.5C18.25,5,19,5.75,19,6.5V17.5 C19,18.25,18.25,19,17.5,19z"/>
+                    </svg>
+                </div>
+                <span>火焰</span>
+            </div>
+            <div class="footer-item">
+                <div class="footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <span>个人</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

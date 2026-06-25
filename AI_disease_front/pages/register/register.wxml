@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="register-form">
+    <view class="title">注册</view>
+    
+    <view class="form-item">
+      <view class="label">用户名</view>
+      <input 
+        class="input" 
+        placeholder="请输入用户名" 
+        bindinput="bindUsernameInput"
+        value="{{username}}"
+      />
+    </view>
+    
+    <view class="form-item">
+      <view class="label">邮箱</view>
+      <input 
+        class="input" 
+        placeholder="请输入邮箱" 
+        bindinput="bindEmailInput"
+        value="{{email}}"
+      />
+    </view>
+    
+    <view class="form-item">
+      <view class="label">密码</view>
+      <input 
+        class="input" 
+        placeholder="请输入密码" 
+        password 
+        bindinput="bindPasswordInput"
+        value="{{password}}"
+      />
+    </view>
+    
+    <view class="form-item">
+      <view class="label">确认密码</view>
+      <input 
+        class="input" 
+        placeholder="请再次输入密码" 
+        password 
+        bindinput="bindConfirmPasswordInput"
+        value="{{confirmPassword}}"
+      />
+    </view>
+    
+    <button class="register-btn" bindtap="handleRegister">注册</button>
+    
+    <view class="links">
+      <text>已有账号？</text>
+      <navigator url="/pages/login/login" class="link">去登录</navigator>
+    </view>
+  </view>
+</view>

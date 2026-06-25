@@ -1,0 +1,239 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+/* 分析标题 */
+.analysis-header {
+  margin-bottom: 30rpx;
+}
+
+.analysis-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.analysis-subtitle {
+  font-size: 24rpx;
+  color: #666;
+  display: block;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 无数据状态 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.add-btn {
+  background-color: #4facfe;
+  color: white;
+  padding: 15rpx 40rpx;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+}
+
+/* 分析内容 */
+.analysis-content {
+  margin-top: 20rpx;
+}
+
+/* 统计信息 */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #4facfe;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+
+.stat-unit {
+  font-size: 18rpx;
+  color: #999;
+}
+
+/* 趋势分析 */
+.trend-section {
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.trend-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.trend-card:last-child {
+  border-bottom: none;
+}
+
+.trend-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.trend-value {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #4facfe;
+}
+
+/* 异常分析 */
+.abnormal-section {
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.abnormal-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.abnormal-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.abnormal-value {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.abnormal-tips {
+  margin-top: 20rpx;
+}
+
+.tips-title {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.tip-item {
+  margin-bottom: 10rpx;
+}
+
+.tip-text {
+  font-size: 22rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 最近记录 */
+.records-section {
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.record-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-header {
+  margin-bottom: 10rpx;
+}
+
+.record-time {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.record-data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.record-item-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.record-label {
+  font-size: 20rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+
+.record-value {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #333;
+}

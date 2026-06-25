@@ -1,0 +1,112 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.form-container {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.form-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+/* 血压输入 */
+.blood-pressure {
+  display: flex;
+  align-items: center;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #e5e5e5;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+}
+
+.input {
+  flex: 1;
+  height: 80rpx;
+  font-size: 28rpx;
+}
+
+.unit {
+  font-size: 24rpx;
+  color: #666;
+  margin-left: 10rpx;
+}
+
+.separator {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin: 0 20rpx;
+}
+
+/* 时间选择器 */
+.time-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  border: 2rpx solid #e5e5e5;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+}
+
+.time-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.arrow {
+  font-size: 20rpx;
+  color: #999;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  width: 100%;
+  height: 80rpx;
+  background-color: #4facfe;
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 10rpx;
+  margin-top: 40rpx;
+}
+
+/* 状态提示 */
+.status-tip {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  background-color: #f0f9ff;
+  border-left: 4rpx solid #4facfe;
+}
+
+.status-text {
+  font-size: 24rpx;
+  color: #4facfe;
+  line-height: 1.5;
+}

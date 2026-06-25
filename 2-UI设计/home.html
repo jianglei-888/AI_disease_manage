@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 慢性病管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .app-container {
+            width: 393px;
+            height: 852px;
+            background-color: #ffffff;
+            border-radius: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .header .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+        
+        .content {
+            padding: 20px;
+            height: calc(100% - 130px);
+            overflow-y: auto;
+        }
+        
+        .health-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .card-more {
+            color: #4facfe;
+            font-size: 14px;
+        }
+        
+        .health-data {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .data-item {
+            text-align: center;
+        }
+        
+        .data-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .data-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+        
+        .data-status {
+            font-size: 14px;
+            color: #4caf50;
+            text-align: center;
+        }
+        
+        .advice-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .advice-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .advice-icon i {
+            color: #2196f3;
+            font-size: 20px;
+        }
+        
+        .advice-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .advice-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-btn i {
+            font-size: 20px;
+        }
+        
+        .tabbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        .tab-item.active i {
+            color: #4facfe;
+        }
+        
+        .tab-item span {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .tab-item.active span {
+            color: #4facfe;
+        }
+        
+        /* 滚动条样式 */
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        
+        .content::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h1>健康管理</h1>
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="health-card">
+                <div class="card-header">
+                    <h2 class="card-title">今日健康数据</h2>
+                    <span class="card-more">查看历史</span>
+                </div>
+                <div class="health-data">
+                    <div class="data-item">
+                        <div class="data-value">120/80</div>
+                        <div class="data-label">血压 (mmHg)</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-value">5.6</div>
+                        <div class="data-label">血糖 (mmol/L)</div>
+                    </div>
+                </div>
+                <div class="data-status">
+                    <i class="fas fa-check-circle"></i> 数据正常
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="action-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>记录数据</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>健康咨询</span>
+                </button>
+            </div>
+            
+            <div class="advice-card">
+                <div class="advice-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3 class="advice-title">今日饮食建议</h3>
+                <p class="advice-content">建议多食用新鲜蔬菜和水果，减少盐分摄入，保持饮食均衡。早餐可选择全麦面包、鸡蛋和牛奶。</p>
+            </div>
+            
+            <div class="advice-card">
+                <div class="advice-icon">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <h3 class="advice-title">今日运动建议</h3>
+                <p class="advice-content">建议进行30分钟中等强度的有氧运动，如快走、慢跑或游泳。避免剧烈运动，注意休息。</p>
+            </div>
+        </div>
+        
+        <div class="tabbar">
+            <div class="tab-item active">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-edit"></i>
+                <span>提交</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-comment"></i>
+                <span>聊天</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-user"></i>
+                <span>个人</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 模拟点击事件
+        document.querySelectorAll('.tab-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.tab-item').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                // 添加当前active类
+                this.classList.add('active');
+                
+                // 模拟页面跳转
+                const tabText = this.querySelector('span').textContent;
+                if (tabText === '提交') {
+                    window.location.href = 'submit.html';
+                } else if (tabText === '聊天') {
+                    window.location.href = 'chat.html';
+                } else if (tabText === '个人') {
+                    window.location.href = 'profile.html';
+                }
+            });
+        });
+        
+        // 快速操作按钮点击事件
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.querySelector('span').textContent;
+                if (text === '记录数据') {
+                    window.location.href = 'submit.html';
+                } else if (text === '健康咨询') {
+                    window.location.href = 'chat.html';
+                }
+            });
+        });
+        
+        // 查看历史点击事件
+        document.querySelector('.card-more').addEventListener('click', function() {
+            alert('查看历史数据');
+        });
+    </script>
+</body>
+</html>
