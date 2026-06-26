@@ -1,85 +1,131 @@
 <view class="container">
-  <!-- 分析标题 -->
-  <view class="analysis-header">
-    <text class="analysis-title">慢性病分析</text>
-    <text class="analysis-subtitle">最近10条健康记录</text>
-  </view>
-
-  <!-- 加载状态 -->
-  <view wx:if="{{loading}}" class="loading-container">
-    <text class="loading-text">正在分析数据...</text>
-  </view>
-
-  <!-- 无数据状态 -->
-  <view wx:elif="{{!loading && !records.length}}" class="empty-container">
-    <text class="empty-text">暂无健康数据</text>
-    <navigator url="/pages/submit/submit" class="add-btn" open-type="switchTab">添加记录</navigator>
-  </view>
-
-  <!-- 分析结果 -->
-  <view wx:else class="analysis-content">
-    <!-- 统计信息 -->
-    <view class="stats-section">
-      <view class="stat-item">
-        <text class="stat-value">{{averageSystolic}}</text>
-        <text class="stat-label">平均收缩压</text>
-        <text class="stat-unit">mmHg</text>
+  <view class="masthead">
+    <view class="masthead__row">
+      <view>
+        <text class="eyebrow">DOSSIER  /  健康趋势</text>
+        <view class="masthead__title serif">你 的<br/>数 据</view>
       </view>
-      <view class="stat-item">
-        <text class="stat-value">{{averageDiastolic}}</text>
-        <text class="stat-label">平均舒张压</text>
-        <text class="stat-unit">mmHg</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{averageBloodSugar}}</text>
-        <text class="stat-label">平均血糖</text>
-        <text class="stat-unit">mmol/L</text>
+      <view class="masthead__seq">
+        <text class="eyebrow">REPORT  N°</text>
+        <text class="masthead__seq-num mono">{{records.length}}</text>
       </view>
     </view>
+    <view class="hairline hairline--dashed" style="margin-top: 24rpx;"></view>
+    <text class="masthead__sub">基于最近 {{records.length}} 条记录。趋势仅供参考。</text>
+  </view>
 
-    <!-- 趋势分析 -->
-    <view class="trend-section">
-      <text class="section-title">趋势分析</text>
-      <view class="trend-card">
-        <text class="trend-label">血压趋势</text>
-        <text class="trend-value">{{bloodPressureTrend}}</text>
-      </view>
-      <view class="trend-card">
-        <text class="trend-label">血糖趋势</text>
-        <text class="trend-value">{{bloodSugarTrend}}</text>
-      </view>
+  <!-- 加载 -->
+  <view wx:if="{{loading}}" class="state">
+    <view class="state__pulse"></view>
+    <text class="eyebrow state__txt">AGGREGATING  ·  分析中</text>
+  </view>
+
+  <!-- 无数据 -->
+  <view wx:elif="{{!loading && !records.length}}" class="state state--empty">
+    <text class="serif state__big">空 白 档 案</text>
+    <text class="state__sub">记录一次血压血糖后，趋势会出现在这里。</text>
+    <navigator url="/pages/submit/submit" open-type="switchTab" class="btn btn--primary" style="margin-top: 32rpx; width: 60%;">第 一 次 记 录</navigator>
+  </view>
+
+  <!-- 统计三联 -->
+  <view wx:else class="stats">
+    <view class="stat">
+      <text class="eyebrow">AVG  SYS</text>
+      <text class="numeral numeral--md mono stat__num">{{averageSystolic}}</text>
+      <text class="eyebrow stat__unit">mmHg</text>
+    </view>
+    <view class="stat__div"></view>
+    <view class="stat">
+      <text class="eyebrow">AVG  DIA</text>
+      <text class="numeral numeral--md mono stat__num">{{averageDiastolic}}</text>
+      <text class="eyebrow stat__unit">mmHg</text>
+    </view>
+    <view class="stat__div"></view>
+    <view class="stat">
+      <text class="eyebrow">AVG  GLU</text>
+      <text class="numeral numeral--md mono stat__num">{{averageBloodSugar}}</text>
+      <text class="eyebrow stat__unit">mmol/L</text>
+    </view>
+  </view>
+
+  <!-- 趋势 -->
+  <view class="card">
+    <view class="card__head">
+      <text class="eyebrow">TREND  /  趋势</text>
     </view>
 
-    <!-- 异常分析 -->
-    <view class="abnormal-section">
-      <text class="section-title">异常分析</text>
-      <view class="abnormal-card">
-        <text class="abnormal-label">异常记录数</text>
-        <text class="abnormal-value">{{abnormalCount}}</text>
+    <view class="trend">
+      <view class="trend__row">
+        <view>
+          <text class="serif trend__name">血 压</text>
+          <text class="trend__hint mono">{{records.length}} PT  /  {{bloodPressureTrend}}</text>
+        </view>
+        <view class="trend__pill {{bpTrend.pillCls}}">{{bpTrend.pillLabel}}</view>
       </view>
-      <view class="abnormal-tips" wx:if="{{abnormalTips.length}}">
-        <text class="tips-title">注意事项</text>
-        <view wx:for="{{abnormalTips}}" wx:key="index" class="tip-item">
-          <text class="tip-text">{{item}}</text>
+      <view class="spark">
+        <view class="spark__line">
+          <view wx:for="{{bpSpark}}" wx:key="i" class="spark__bar" style="height: {{item}}%; background: {{item > 70 ? 'var(--alert)' : (item < 30 ? 'var(--accent-cool)' : 'var(--accent-warm)')}};"></view>
         </view>
       </view>
     </view>
 
-    <!-- 最近记录 -->
-    <view class="records-section">
-      <text class="section-title">最近记录</text>
-      <view wx:for="{{records}}" wx:key="index" class="record-item">
-        <view class="record-header">
-          <text class="record-time">{{item.formattedTime}}</text>
+    <view class="hairline" style="margin: 28rpx 0;"></view>
+
+    <view class="trend">
+      <view class="trend__row">
+        <view>
+          <text class="serif trend__name">血 糖</text>
+          <text class="trend__hint mono">{{records.length}} PT  /  {{bloodSugarTrend}}</text>
         </view>
-        <view class="record-data">
-          <view class="record-item-data">
-            <text class="record-label">血压</text>
-            <text class="record-value">{{item.systolic}}/{{item.diastolic}} mmHg</text>
-          </view>
-          <view class="record-item-data">
-            <text class="record-label">血糖</text>
-            <text class="record-value">{{item.blood_sugar}} mmol/L</text>
+        <view class="trend__pill {{bsTrend.pillCls}}">{{bsTrend.pillLabel}}</view>
+      </view>
+      <view class="spark">
+        <view class="spark__line">
+          <view wx:for="{{bsSpark}}" wx:key="i" class="spark__bar" style="height: {{item}}%; background: {{item > 70 ? 'var(--alert)' : (item < 30 ? 'var(--accent-cool)' : 'var(--accent-cool-2)')}};"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 异常 -->
+  <view class="card">
+    <view class="card__head">
+      <text class="eyebrow">ANOMALY  /  异常</text>
+      <view class="badge {{abnormalCount > 0 ? 'badge--alert' : 'badge--ok'}}">{{abnormalCount}} 次</view>
+    </view>
+    <view wx:if="{{abnormalTips.length}}" class="tips">
+      <view wx:for="{{abnormalTips}}" wx:key="i" class="tip">
+        <view class="tip__num mono">{{item.idx}}.</view>
+        <text class="tip__txt serif">{{item.text}}</text>
+      </view>
+    </view>
+    <view wx:else class="ok-box">
+      <text class="serif ok-box__big">所 有 指 标 在 正 常 范 围</text>
+      <text class="ok-box__sub">继续保持健康的生活方式。</text>
+    </view>
+  </view>
+
+  <!-- 最近记录 -->
+  <view class="card">
+    <view class="card__head">
+      <text class="eyebrow">RECENT  /  最近记录</text>
+    </view>
+    <view class="timeline">
+      <view wx:for="{{records}}" wx:key="index" class="tl-item">
+        <view class="tl-item__rail">
+          <view class="tl-item__dot {{item.alert ? 'is-on' : ''}}"></view>
+        </view>
+        <view class="tl-item__body">
+          <text class="mono tl-item__time">{{item.formattedTime}}</text>
+          <view class="tl-item__vals">
+            <view class="tl-item__val">
+              <text class="eyebrow">BP</text>
+              <text class="mono tl-item__big">{{item.systolic}}/{{item.diastolic}}</text>
+            </view>
+            <view class="tl-item__val">
+              <text class="eyebrow">GLU</text>
+              <text class="mono tl-item__big">{{item.blood_sugar}}</text>
+            </view>
           </view>
         </view>
       </view>

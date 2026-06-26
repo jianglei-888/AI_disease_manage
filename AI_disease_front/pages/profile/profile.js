@@ -4,19 +4,15 @@ import common from '../../utils/common';
 
 Page({
   data: {
-    userInfo: null
+    userInfo: null,
+    userInitial: 'U'
   },
 
   onLoad() {
-    // 检查是否已登录
     if (!auth.isLoggedIn()) {
-      wx.redirectTo({
-        url: '/pages/login/login'
-      });
+      wx.redirectTo({ url: '/pages/login/login' });
       return;
     }
-
-    // 获取用户信息
     this.getUserInfo();
   },
 
@@ -24,8 +20,10 @@ Page({
     try {
       const response = await authService.getMe();
       if (response) {
+        const name = response.username || response.email || 'U';
         this.setData({
-          userInfo: response
+          userInfo: response,
+          userInitial: String(name).charAt(0).toUpperCase()
         });
       }
     } catch (error) {

@@ -1,39 +1,72 @@
-<view class="container">
-  <view class="login-form">
-    <view class="title">登录</view>
-    
-    <view class="form-item">
-      <view class="label">邮箱</view>
-      <input 
-        class="input" 
-        placeholder="请输入邮箱" 
-        bindinput="bindEmailInput"
-        value="{{email}}"
-      />
+<view class="container container--padded">
+  <!-- 顶部：刊号 + 杂志名 -->
+  <view class="masthead">
+    <view class="masthead__row">
+      <text class="eyebrow">ISSUE  N°  001</text>
+      <text class="eyebrow">EST.  2025</text>
     </view>
-    
-    <view class="form-item">
-      <view class="label">密码</view>
-      <input 
-        class="input" 
-        placeholder="请输入密码" 
-        password 
-        bindinput="bindPasswordInput"
-        value="{{password}}"
-      />
+    <view class="hairline hairline--dashed" style="margin-top: 18rpx;"></view>
+  </view>
+
+  <!-- 标题区：大号衬线 + 装饰数字 -->
+  <view class="hero">
+    <view class="hero__bignum serif">01</view>
+    <view class="hero__copy">
+      <text class="hero__sub eyebrow">— A PRIVATE HEALTH JOURNAL</text>
+      <text class="hero__title serif">慢\n\n病\n\n手\n\n账</text>
+      <text class="hero__desc">用你自己的节奏，\n记录每一次心跳、每一格血压。</text>
     </view>
-    
-    <view class="remember-container">
-      <checkbox class="checkbox" checked="{{remember}}" bindchange="bindRememberChange" />
-      <text class="remember-text">记住密码</text>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form">
+    <view class="form__row">
+      <text class="form__label eyebrow">EMAIL  /  邮箱</text>
+      <view class="field">
+        <input
+          class="form__input"
+          placeholder="name@domain.com"
+          placeholder-style="color:#6E6A62; letter-spacing:2rpx;"
+          bindinput="bindEmailInput"
+          value="{{email}}"
+        />
+      </view>
     </view>
-    
-    <button class="login-btn" bindtap="handleLogin">登录</button>
-    
+
+    <view class="form__row">
+      <text class="form__label eyebrow">PASSPHRASE  /  密码</text>
+      <view class="field">
+        <input
+          class="form__input"
+          password
+          placeholder="••••••••"
+          placeholder-style="color:#6E6A62; letter-spacing:4rpx;"
+          bindinput="bindPasswordInput"
+          value="{{password}}"
+        />
+      </view>
+    </view>
+
+    <view class="form__meta">
+      <view class="remember" bindtap="bindRememberChange">
+        <view class="remember__box {{remember ? 'is-on' : ''}}">
+          <text wx:if="{{remember}}" class="remember__mark">✓</text>
+        </view>
+        <text class="remember__text">记住我</text>
+      </view>
+      <text class="forget" bindtap="handleForgotPassword">忘记密码 →</text>
+    </view>
+
+    <button class="btn btn--primary" bindtap="handleLogin">进 入 手 账</button>
+
     <view class="links">
-      <navigator url="/pages/register/register" class="link">注册</navigator>
-      <text class="divider">|</text>
-      <text class="link" bindtap="handleForgotPassword">忘记密码</text>
+      <text class="links__hint">还没有账号？</text>
+      <navigator url="/pages/register/register" class="links__action">注册新档案 →</navigator>
     </view>
+  </view>
+
+  <!-- 底部水印 -->
+  <view class="footnote">
+    <text class="eyebrow">© VITALS  ·  MIDNIGHT CLINIC</text>
   </view>
 </view>

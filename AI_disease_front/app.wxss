@@ -1,3 +1,236 @@
-/**app.wxss**/
+/* ==========================================================
+   MIDNIGHT CLINIC — 全局设计系统
+   暗色精密医疗 · 暖琥珀 + 冷青
+   ========================================================== */
+
+page {
+  --bg-base:        #0E1116;   /* 主背景（深夜石墨） */
+  --bg-card:        #1A1F27;   /* 卡片底 */
+  --bg-card-soft:   #222932;   /* 卡片下沉 / 输入框 */
+  --bg-elevated:    #2A3140;   /* 弹层 / 选中态 */
+  --line:           #2E3645;   /* 分隔线 */
+  --line-soft:      #1F2630;
+
+  --ink-strong:     #F2EFE9;   /* 主文字（米白） */
+  --ink-mid:        #B5B0A6;   /* 次文字 */
+  --ink-dim:        #6E6A62;   /* 辅助 / 标签 */
+  --ink-inverse:    #0E1116;
+
+  --accent-warm:    #E8A87C;   /* 暖琥珀（生命体征主色） */
+  --accent-warm-2:  #C58A5E;
+  --accent-cool:    #7DD3C0;   /* 冷青（健康正常） */
+  --accent-cool-2:  #4FB3A0;
+  --alert:          #E07A5F;   /* 朱砂（异常） */
+  --warning:        #F4C24A;
+  --info:           #8FA8C4;
+
+  --font-serif:     "Source Han Serif SC", "Songti SC", "STSong", "Noto Serif SC", "Georgia", serif;
+  --font-sans:      -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  --font-mono:      "DIN Alternate", "Menlo", "SF Mono", "Roboto Mono", monospace;
+
+  --radius-sm:  12rpx;
+  --radius-md:  20rpx;
+  --radius-lg:  32rpx;
+  --radius-xl:  48rpx;
+
+  background: var(--bg-base);
+  color: var(--ink-strong);
+  font-family: var(--font-sans);
+  font-size: 28rpx;
+  line-height: 1.55;
+}
+
+/* 整页使用微噪点纹理 — 工业仪表感 */
+page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .35;
+  background-image:
+    radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 6rpx 6rpx;
+}
+
+view, text, input, textarea, button, scroll-view, navigator, image {
+  box-sizing: border-box;
+}
+
+/* 字体语义类 */
+.serif   { font-family: var(--font-serif); font-weight: 500; letter-spacing: 0.5rpx; }
+.mono    { font-family: var(--font-mono); letter-spacing: 1rpx; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 20rpx;
+  letter-spacing: 4rpx;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+
+/* 通用容器 */
 .container {
-} 
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 32rpx 32rpx 80rpx;
+  background: var(--bg-base);
+}
+
+.container--padded { padding: 48rpx 40rpx 120rpx; }
+
+/* 卡片 — 略带内阴影的"金属面板"质感 */
+.card {
+  background: var(--bg-card);
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  padding: 36rpx 32rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.card--soft    { background: var(--bg-card-soft); }
+.card--grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 8rpx 8rpx;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* 大数字 — 杂志感 */
+.numeral {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  letter-spacing: -1rpx;
+  line-height: 1;
+  color: var(--ink-strong);
+}
+
+.numeral--xl { font-size: 120rpx; }
+.numeral--lg { font-size: 80rpx;  }
+.numeral--md { font-size: 56rpx;  }
+.numeral--sm { font-size: 36rpx;  }
+
+/* 标签徽章 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-family: var(--font-mono);
+  font-size: 20rpx;
+  letter-spacing: 2rpx;
+  text-transform: uppercase;
+}
+.badge--ok    { background: rgba(125,211,192,.12); color: var(--accent-cool);  border: 1rpx solid rgba(125,211,192,.3); }
+.badge--warn  { background: rgba(232,168,124,.12); color: var(--accent-warm);  border: 1rpx solid rgba(232,168,124,.3); }
+.badge--alert { background: rgba(224,122,95,.14);  color: var(--alert);        border: 1rpx solid rgba(224,122,95,.35);  }
+.badge--ink   { background: rgba(255,255,255,.04); color: var(--ink-mid);      border: 1rpx solid var(--line);            }
+
+.badge::before {
+  content: "";
+  width: 8rpx; height: 8rpx;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8rpx currentColor;
+}
+
+/* 按钮 */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 96rpx;
+  font-family: var(--font-sans);
+  font-size: 30rpx;
+  font-weight: 500;
+  letter-spacing: 4rpx;
+  border-radius: var(--radius-md);
+  border: none;
+  transition: transform .15s ease, opacity .15s ease;
+}
+.btn::after { border: none; }
+.btn--primary {
+  background: linear-gradient(135deg, var(--accent-warm) 0%, var(--accent-warm-2) 100%);
+  color: var(--ink-inverse);
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(232,168,124,.25);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ink-strong);
+  border: 1rpx solid var(--line);
+}
+.btn--danger {
+  background: transparent;
+  color: var(--alert);
+  border: 1rpx solid rgba(224,122,95,.4);
+}
+.btn:active { transform: scale(.98); opacity: .85; }
+.btn[disabled] { opacity: .4; }
+
+/* 输入控件 */
+.field {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card-soft);
+  border: 1rpx solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0 28rpx;
+  height: 96rpx;
+  transition: border-color .2s ease, background .2s ease;
+}
+.field--focus { border-color: var(--accent-warm); }
+.field input,
+.field textarea {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--ink-strong);
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 96rpx;
+  line-height: 96rpx;
+}
+.field .unit {
+  font-family: var(--font-mono);
+  font-size: 22rpx;
+  letter-spacing: 1rpx;
+  color: var(--ink-dim);
+  margin-left: 12rpx;
+}
+
+/* 分隔 */
+.hairline {
+  height: 1rpx;
+  background: var(--line-soft);
+  width: 100%;
+}
+.hairline--dashed {
+  background: none;
+  border-top: 2rpx dashed var(--line);
+}
+
+/* 隐藏 scroll-view 滚动条（视觉极简） */
+::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* 状态提示胶囊 */
+.toast-pill {
+  position: fixed;
+  left: 50%;
+  bottom: 160rpx;
+  transform: translateX(-50%);
+  background: rgba(26,31,39,.95);
+  border: 1rpx solid var(--line);
+  color: var(--ink-strong);
+  padding: 20rpx 36rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  z-index: 9999;
+  backdrop-filter: blur(20rpx);
+}

@@ -11,37 +11,38 @@
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "慢性病管理",
-    "navigationBarBackgroundColor": "#4facfe",
-    "backgroundColor": "#f5f5f5"
+    "navigationBarTitleText": "VITALS · 慢病管理",
+    "navigationBarBackgroundColor": "#0E1116",
+    "backgroundColor": "#0E1116",
+    "backgroundTextStyle": "dark"
   },
   "tabBar": {
-    "color": "#999",
-    "selectedColor": "#4facfe",
-    "backgroundColor": "#ffffff",
+    "color": "#6E6A62",
+    "selectedColor": "#E8A87C",
+    "backgroundColor": "#0E1116",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页",
+        "text": "首  页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-active.png"
       },
       {
         "pagePath": "pages/submit/submit",
-        "text": "提交",
+        "text": "记  录",
         "iconPath": "images/submit.png",
         "selectedIconPath": "images/submit-active.png"
       },
       {
         "pagePath": "pages/chat/chat",
-        "text": "咨询",
+        "text": "咨  询",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "个人",
+        "text": "我  的",
         "iconPath": "images/profile.png",
         "selectedIconPath": "images/profile-active.png"
       }

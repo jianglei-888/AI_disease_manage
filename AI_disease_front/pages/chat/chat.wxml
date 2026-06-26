@@ -1,34 +1,95 @@
 <view class="container">
-  <!-- 聊天消息列表 -->
-  <scroll-view class="message-list" scroll-y="true" scroll-top="{{scrollTop}}">
-    <view 
-      wx:for="{{messages}}" 
-      wx:key="id"
-      class="message-item {{item.role === 'user' ? 'user-message' : 'ai-message'}}"
-    >
-      <!-- 头像 -->
-      <image class="avatar" src="{{item.role === 'ai' ? '/images/doctor.png' : '/images/head.png'}}" mode="aspectFill"></image>
-      
-      <view class="message-bubble">
-        <text class="message-content">{{item.message}}</text>
-        <text class="message-time">{{item.created_at}}</text>
+  <!-- 状态条 -->
+  <view class="status-bar">
+    <view class="status-bar__row">
+      <view class="status-dot {{online ? 'is-on' : ''}}"></view>
+      <text class="eyebrow">DR.  VITALS  ·  智能体值守</text>
+    </view>
+    <text class="eyebrow" style="color: var(--ink-dim);">会话编号 #{{sessionId}}</text>
+  </view>
+
+  <!-- 消息流 -->
+  <scroll-view
+    class="message-list"
+    scroll-y="true"
+    scroll-top="{{scrollTop}}"
+    enhanced="true"
+    show-scrollbar="false"
+  >
+    <block wx:for="{{messages}}" wx:key="id">
+      <!-- AI -->
+      <view wx:if="{{item.role === 'ai'}}" class="msg msg--ai">
+        <view class="msg__avatar msg__avatar--ai serif">V</view>
+        <view class="msg__col">
+          <view class="msg__meta">
+            <text class="msg__name serif">DR. VITALS</text>
+            <text class="msg__time mono">{{item.created_at}}</text>
+          </view>
+          <view class="msg__bubble msg__bubble--ai">
+            <view class="msg__quote"></view>
+            <text class="msg__content serif">{{item.message}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- USER -->
+      <view wx:else class="msg msg--user">
+        <view class="msg__col msg__col--right">
+          <view class="msg__meta msg__meta--right">
+            <text class="msg__time mono">{{item.created_at}}</text>
+            <text class="msg__name serif">YOU</text>
+          </view>
+          <view class="msg__bubble msg__bubble--user">
+            <text class="msg__content mono">{{item.message}}</text>
+          </view>
+        </view>
+        <view class="msg__avatar msg__avatar--user serif">U</view>
+      </view>
+    </block>
+
+    <!-- 加载 -->
+    <view wx:if="{{loading}}" class="msg msg--ai">
+      <view class="msg__avatar msg__avatar--ai serif">V</view>
+      <view class="msg__col">
+        <view class="typing">
+          <view class="typing__dot"></view>
+          <view class="typing__dot"></view>
+          <view class="typing__dot"></view>
+          <text class="typing__txt mono">CONSULTING  ·  思考中</text>
+        </view>
       </view>
     </view>
-    <view wx:if="{{loading}}" class="loading">
-      <text>AI正在思考...</text>
+
+    <!-- 空状态 -->
+    <view wx:if="{{!messages.length && !loading}}" class="empty">
+      <text class="serif empty__big">你好，</text>
+      <text class="serif empty__big">我在这里。</text>
+      <text class="empty__hint">饮食 · 用药 · 检查指标，任何关于慢病的问题都可以问我。</text>
+
+      <view class="empty__chips">
+        <view class="empty__chip" bindtap="useSuggestion" data-text="最近血压偏高，饮食上应该注意什么？">"血压偏高，饮食注意什么？"</view>
+        <view class="empty__chip" bindtap="useSuggestion" data-text="二甲双胍的常见副作用有哪些？">"二甲双胍副作用"</view>
+        <view class="empty__chip" bindtap="useSuggestion" data-text="空腹血糖 6.8 mmol/L，需要吃药吗？">"空腹 6.8 怎么办"</view>
+      </view>
     </view>
   </scroll-view>
 
-  <!-- 输入区域 -->
-  <view class="input-area">
-    <input 
-      class="input" 
-      placeholder="输入您的健康问题..." 
-      bindinput="bindMessageInput"
-      value="{{inputMessage}}"
-    />
-    <button class="send-btn" bindtap="handleSendMessage" >
-      发送
-    </button>
+  <!-- 输入区 -->
+  <view class="composer">
+    <view class="composer__field">
+      <text class="composer__prompt mono">></text>
+      <input
+        class="composer__input mono"
+        placeholder="写下你的问题，回车发送…"
+        placeholder-style="color:#6E6A62; letter-spacing:2rpx;"
+        bindinput="bindMessageInput"
+        value="{{inputMessage}}"
+        confirm-type="send"
+        bindconfirm="handleSendMessage"
+      />
+    </view>
+    <view class="composer__send {{inputMessage ? 'is-on' : ''}}" bindtap="handleSendMessage">
+      <text class="mono composer__send-txt">SEND</text>
+    </view>
   </view>
 </view>

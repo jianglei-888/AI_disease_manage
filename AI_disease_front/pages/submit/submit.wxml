@@ -1,65 +1,103 @@
 <view class="container">
-  <view class="form-container">
-    <view class="form-title">提交健康数据</view>
+  <!-- 刊头 -->
+  <view class="masthead">
+    <view class="masthead__row">
+      <view>
+        <text class="eyebrow">RECORD  /  新建记录</text>
+        <view class="masthead__title serif">记 一 次</view>
+      </view>
+      <view class="masthead__seq">
+        <text class="eyebrow">FORM  N°</text>
+        <text class="masthead__seq-num mono">04</text>
+      </view>
+    </view>
+    <view class="hairline hairline--dashed" style="margin-top: 24rpx;"></view>
+  </view>
 
-    <!-- 血压输入 -->
-    <view class="form-section">
-      <view class="section-title">血压</view>
-      <view class="blood-pressure">
-        <view class="input-group">
-          <input 
-            class="input" 
-            placeholder="收缩压（高压）" 
-            type="number" 
+  <!-- 血压双栏 -->
+  <view class="card">
+    <view class="card__head">
+      <text class="eyebrow">BLOOD  PRESSURE  /  血压</text>
+      <view class="badge {{bp.cls}}">{{bp.label}}</view>
+    </view>
+
+    <view class="bp">
+      <view class="bp__cell">
+        <text class="eyebrow">SYS  /  收缩压</text>
+        <view class="bp__num">
+          <input
+            class="bp__input mono"
+            type="number"
+            placeholder="120"
+            placeholder-style="color:#2E3645;"
             bindinput="bindSystolicInput"
             value="{{systolic}}"
           />
-          <text class="unit">mmHg</text>
         </view>
-        <view class="separator">/</view>
-        <view class="input-group">
-          <input 
-            class="input" 
-            placeholder="舒张压（低压）" 
-            type="number" 
+        <text class="bp__unit mono">mmHg</text>
+      </view>
+
+      <view class="bp__divider mono">/</view>
+
+      <view class="bp__cell">
+        <text class="eyebrow">DIA  /  舒张压</text>
+        <view class="bp__num">
+          <input
+            class="bp__input mono"
+            type="number"
+            placeholder="80"
+            placeholder-style="color:#2E3645;"
             bindinput="bindDiastolicInput"
             value="{{diastolic}}"
           />
-          <text class="unit">mmHg</text>
         </view>
+        <text class="bp__unit mono">mmHg</text>
       </view>
     </view>
+  </view>
 
-    <!-- 血糖输入 -->
-    <view class="form-section">
-      <view class="section-title">血糖</view>
-      <view class="input-group">
-        <input 
-          class="input" 
-          placeholder="血糖值" 
-          type="number" 
+  <!-- 血糖 -->
+  <view class="card">
+    <view class="card__head">
+      <text class="eyebrow">GLUCOSE  /  血糖</text>
+      <view class="badge {{bs.cls}}">{{bs.label}}</view>
+    </view>
+    <view class="bs">
+      <view class="bs__num-wrap">
+        <input
+          class="numeral numeral--xl mono bs__input"
+          type="digit"
+          placeholder="5.6"
+          placeholder-style="color:#2E3645; font-size:120rpx;"
           bindinput="bindBloodSugarInput"
           value="{{bloodSugar}}"
         />
-        <text class="unit">mmol/L</text>
+        <text class="bs__unit mono">mmol/L</text>
       </view>
     </view>
+  </view>
 
-    <!-- 测量时间 -->
-    <view class="form-section">
-      <view class="section-title">测量时间</view>
-      <view class="time-picker" bindtap="openTimePicker">
-        <text class="time-text">{{measuredAt || '请选择测量时间'}}</text>
-        <text class="arrow">▼</text>
+  <!-- 时间选择 -->
+  <view class="card card--soft time-card" bindtap="openTimePicker">
+    <view class="time-card__row">
+      <view>
+        <text class="eyebrow">MEASURED  AT  /  测量时间</text>
+        <text class="serif time-card__txt">{{measuredAt || '请选择测量时间'}}</text>
       </view>
+      <view class="time-card__arr">⌄</view>
     </view>
+  </view>
 
-    <!-- 提交按钮 -->
-    <button class="submit-btn" bindtap="handleSubmit">提交数据</button>
+  <!-- 状态提示 -->
+  <view wx:if="{{statusTip}}" class="status">
+    <view class="status__bar"></view>
+    <text class="status__txt">{{statusTip}}</text>
+  </view>
 
-    <!-- 状态提示 -->
-    <view class="status-tip" wx:if="{{statusTip}}">
-      <text class="status-text">{{statusTip}}</text>
-    </view>
+  <!-- 提交 -->
+  <button class="btn btn--primary submit-btn" bindtap="handleSubmit">提  交  记  录</button>
+
+  <view class="footnote">
+    <text class="eyebrow">数据仅作趋势参考，不能替代医生诊断</text>
   </view>
 </view>

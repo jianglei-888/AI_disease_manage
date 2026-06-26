@@ -1,157 +1,281 @@
-.container {
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  padding: 20rpx;
-}
+/* === 首页 — Midnight Clinic === */
+.container { background: var(--bg-base); }
 
-/* 健康数据卡片 */
-.health-card {
-  background-color: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20rpx;
-}
-
-.health-data {
+/* 刊头 */
+.masthead { padding: 16rpx 8rpx 0; }
+.masthead__top {
   display: flex;
-  align-items: center;
-  margin-bottom: 20rpx;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.masthead__hello {
+  margin-top: 12rpx;
+  font-size: 56rpx;
+  line-height: 1.2;
+  color: var(--ink-strong);
+  font-weight: 500;
+  letter-spacing: 2rpx;
+}
+.masthead__dot {
+  padding: 8rpx 18rpx;
+  border: 1rpx solid var(--line);
+  border-radius: 999rpx;
 }
 
-.data-item {
-  flex: 1;
-  text-align: center;
+/* 头版头条 */
+.lead {
+  margin-top: 36rpx;
+  padding: 36rpx 32rpx 28rpx;
 }
-
-.data-label {
-  font-size: 24rpx;
-  color: #666;
-  margin-bottom: 10rpx;
-}
-
-.data-value {
-  font-size: 48rpx;
-  font-weight: bold;
-  color: #4facfe;
-  margin-bottom: 5rpx;
-}
-
-.data-unit {
-  font-size: 20rpx;
-  color: #999;
-}
-
-.data-divider {
-  width: 2rpx;
-  height: 80rpx;
-  background-color: #e5e5e5;
-  margin: 0 30rpx;
-}
-
-.card-footer {
+.lead__row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20rpx;
-  border-top: 2rpx solid #f0f0f0;
 }
-
-.last-updated {
+.lead__display {
+  display: flex;
+  align-items: baseline;
+  margin-top: 24rpx;
+}
+.lead__num {
+  display: flex;
+  align-items: baseline;
+}
+.lead__num--dim { color: var(--ink-mid); }
+.lead__slash {
+  font-size: 96rpx;
+  color: var(--ink-dim);
+  margin: 0 12rpx;
+  font-weight: 300;
+}
+.lead__unit {
+  margin-left: 20rpx;
   font-size: 22rpx;
-  color: #999;
+  color: var(--ink-dim);
+  letter-spacing: 3rpx;
 }
 
-.update-btn {
-  font-size: 24rpx;
-  color: #4facfe;
-  padding: 8rpx 20rpx;
-  border: 2rpx solid #4facfe;
-  border-radius: 15rpx;
+.lead__chart {
+  position: relative;
+  height: 180rpx;
+  margin: 16rpx 0 20rpx;
+  border-top: 1rpx solid var(--line-soft);
+  border-bottom: 1rpx solid var(--line-soft);
+  overflow: hidden;
+}
+.lead__chart-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(232,168,124,.06) 0%, transparent 100%);
+}
+.lead__chart-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lead__foot {
+  display: flex;
+  border-top: 1rpx solid var(--line-soft);
+  padding-top: 24rpx;
+}
+.lead__cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  border-right: 1rpx solid var(--line-soft);
+}
+.lead__cell:last-child { border-right: none; padding-left: 4rpx; }
+.lead__cell-val {
+  font-size: 32rpx;
+  color: var(--ink-strong);
+}
+.lead__cell-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6rpx;
+}
+.lead__cell-unit {
+  font-size: 18rpx;
+  color: var(--ink-dim);
+  margin-left: 6rpx;
+}
+.lead__cell-time { font-size: 22rpx; color: var(--ink-mid); }
+
+/* 次条血糖 */
+.sub { margin-top: 24rpx; padding: 32rpx; }
+.sub__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28rpx;
+}
+.sub__title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 30rpx;
+  color: var(--ink-strong);
+  letter-spacing: 2rpx;
+}
+.sub__num-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+.sub__unit {
+  font-size: 20rpx;
+  color: var(--ink-dim);
+  letter-spacing: 2rpx;
+}
+
+.sub__bar {
+  position: relative;
+  height: 12rpx;
+  border-radius: 6rpx;
+  overflow: hidden;
+  display: flex;
+  margin-top: 12rpx;
+}
+.sub__bar-track {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-card-soft);
+}
+.sub__bar-zone {
+  height: 100%;
+  flex: 1;
+  opacity: .55;
+}
+.sub__bar-zone--low  { background: var(--info); }
+.sub__bar-zone--ok   { background: var(--accent-cool); }
+.sub__bar-zone--high { background: var(--alert); }
+.sub__bar-marker {
+  position: absolute;
+  top: -6rpx;
+  width: 4rpx;
+  height: 24rpx;
+  background: var(--ink-strong);
+  box-shadow: 0 0 0 4rpx var(--bg-card), 0 0 12rpx var(--accent-warm);
+  transform: translateX(-50%);
+}
+.sub__bar-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12rpx;
+  font-size: 18rpx;
+  color: var(--ink-dim);
+  letter-spacing: 1rpx;
 }
 
 /* 快捷操作 */
-.quick-actions {
+.quick {
   display: flex;
-  margin-bottom: 20rpx;
+  gap: 20rpx;
+  margin-top: 24rpx;
 }
-
-.action-item {
+.quick__item {
   flex: 1;
-  background-color: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  margin-right: 10rpx;
-  text-align: center;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-}
-
-.action-item:last-child {
-  margin-right: 0;
-}
-
-.action-icon {
-  width: 80rpx;
-  height: 80rpx;
-  background-color: #4facfe;
-  color: white;
-  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 24rpx;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15rpx;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12rpx;
+  position: relative;
+  overflow: hidden;
+}
+.quick__item::after {
+  content: "";
+  position: absolute;
+  right: -40rpx; top: -40rpx;
+  width: 140rpx; height: 140rpx;
+  border-radius: 50%;
+  opacity: .06;
+  background: var(--accent-warm);
+}
+.quick__item:last-child::after { background: var(--accent-cool); }
+.quick__icon {
+  width: 72rpx; height: 72rpx;
+  border-radius: 18rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40rpx;
+  color: var(--ink-inverse);
+  font-weight: 700;
+}
+.quick__icon--warm { background: var(--accent-warm); }
+.quick__icon--cool { background: var(--accent-cool); }
+.quick__sym { line-height: 1; }
+.quick__txt {
+  font-size: 30rpx;
+  color: var(--ink-strong);
+  letter-spacing: 4rpx;
+  margin-top: 4rpx;
+}
+.quick__sub {
+  color: var(--ink-dim);
+  font-size: 18rpx;
 }
 
-.icon {
-  font-size: 48rpx;
-  font-weight: bold;
-}
-
-.action-text {
-  font-size: 24rpx;
-  color: #333;
-}
-
-/* 建议卡片 */
-.advice-cards {
+/* 建议 */
+.advice { margin-top: 36rpx; }
+.advice__head { margin-bottom: 18rpx; }
+.advice__grid {
   display: flex;
   flex-direction: column;
   gap: 20rpx;
 }
-
-.advice-card {
-  background-color: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+.advice__item {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  padding: 32rpx;
+  position: relative;
+  overflow: hidden;
+}
+.advice__num {
+  position: absolute;
+  right: 24rpx;
+  top: 18rpx;
+  font-size: 56rpx;
+  color: var(--accent-warm);
+  opacity: .12;
+  font-style: italic;
+  font-weight: 500;
+}
+.advice__item:last-child .advice__num { color: var(--accent-cool); }
+.advice__title {
+  font-size: 30rpx;
+  color: var(--ink-strong);
+  letter-spacing: 4rpx;
+}
+.advice__body {
+  font-size: 26rpx;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  white-space: pre-line;
 }
 
-.advice-header {
+/* 底部入口 */
+.footer-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20rpx;
+  margin-top: 48rpx;
+  padding: 32rpx;
+  border: 1rpx dashed var(--line);
+  border-radius: var(--radius-md);
 }
-
-.advice-title {
+.footer-link__txt {
+  font-size: 26rpx;
+  color: var(--ink-mid);
+  letter-spacing: 2rpx;
+}
+.footer-link__arr {
   font-size: 28rpx;
-  font-weight: bold;
-  color: #333;
-}
-
-.advice-icon {
-  font-size: 36rpx;
-}
-
-.advice-content {
-  font-size: 24rpx;
-  color: #666;
-  line-height: 1.5;
+  color: var(--accent-warm);
 }

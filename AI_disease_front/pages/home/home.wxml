@@ -1,64 +1,130 @@
 <view class="container">
-  <!-- 今日健康数据卡片 -->
-  <view class="health-card">
-    <view class="card-title">今日健康数据</view>
-    <view class="health-data">
-      <view class="data-item">
-        <view class="data-label">血压</view>
-        <view class="data-value">{{latestRecord ? latestRecord.systolic : ''}}/{{latestRecord ? latestRecord.diastolic : ''}}</view>
-        <view class="data-unit">mmHg</view>
+  <!-- ============== 顶刊头 ============== -->
+  <view class="masthead">
+    <view class="masthead__top">
+      <view>
+        <text class="eyebrow">{{greetingTime}}  ·  {{todayLabel}}</text>
+        <view class="masthead__hello serif">{{greetingText}}，{{userName}}</view>
       </view>
-      <view class="data-divider"></view>
-      <view class="data-item">
-        <view class="data-label">血糖</view>
-        <view class="data-value">{{latestRecord ? latestRecord.blood_sugar : ''}}</view>
-        <view class="data-unit">mmol/L</view>
+      <view class="masthead__dot">
+        <text class="eyebrow" style="color: var(--accent-cool);">● 实时</text>
       </view>
     </view>
-    <view class="card-footer">
-      <text class="last-updated">{{latestRecord ? '最后更新: ' + (latestRecord.formattedTime || latestRecord.measured_at) : '暂无数据'}}</text>
-      <navigator url="/pages/analysis/analysis" class="update-btn">慢性病分析</navigator>
+    <view class="hairline hairline--dashed" style="margin-top: 28rpx;"></view>
+  </view>
+
+  <!-- ============== 头版头条：血压主数据 ============== -->
+  <view class="lead card card--grain">
+    <view class="lead__row">
+      <text class="eyebrow">FEATURE  /  血压 · 头版</text>
+      <view class="badge {{bpBadgeCls}}">{{bpBadgeLabel}}</view>
+    </view>
+
+    <view class="lead__display">
+      <view class="lead__num">
+        <text class="numeral numeral--xl mono">{{latestRecord ? latestRecord.systolic : '—'}}</text>
+        <text class="lead__slash mono">/</text>
+        <text class="numeral numeral--xl mono lead__num--dim">{{latestRecord ? latestRecord.diastolic : '—'}}</text>
+      </view>
+      <text class="lead__unit mono">mmHg</text>
+    </view>
+
+    <!-- 自绘心率曲线 SVG -->
+    <view class="lead__chart">
+      <view class="lead__chart-bg"></view>
+      <image class="lead__chart-svg" src="/images/heartrate.svg" mode="aspectFit"></image>
+    </view>
+
+    <view class="lead__foot">
+      <view class="lead__cell">
+        <text class="eyebrow">心 率</text>
+        <view class="lead__cell-row">
+          <text class="mono lead__cell-val">{{latestRecord ? latestRecord.systolic : '—'}}</text>
+          <text class="lead__cell-unit">bpm</text>
+        </view>
+      </view>
+      <view class="lead__cell">
+        <text class="eyebrow">脉压差</text>
+        <view class="lead__cell-row">
+          <text class="mono lead__cell-val">{{latestRecord ? (latestRecord.systolic - latestRecord.diastolic) : '—'}}</text>
+          <text class="lead__cell-unit">mmHg</text>
+        </view>
+      </view>
+      <view class="lead__cell">
+        <text class="eyebrow">最近记录</text>
+        <text class="mono lead__cell-val lead__cell-time">{{latestRecord && latestRecord.formattedTime ? latestRecord.formattedTime : '暂无'}}</text>
+      </view>
     </view>
   </view>
 
-  <!-- 快捷操作 -->
-  <view class="quick-actions">
-    <navigator url="/pages/submit/submit" class="action-item" open-type="switchTab">
-      <view class="action-icon">
-        <text class="icon">+</text>
+  <!-- ============== 次条：血糖 ============== -->
+  <view class="sub card">
+    <view class="sub__row">
+      <view>
+        <text class="eyebrow">SUB-FEATURE  /  血糖</text>
+        <text class="serif sub__title">毛细血管里的一勺糖</text>
       </view>
-      <text class="action-text">添加记录</text>
+      <view class="sub__num-wrap">
+        <text class="numeral numeral--lg mono">{{latestRecord ? latestRecord.blood_sugar : '—'}}</text>
+        <text class="sub__unit mono">mmol/L</text>
+      </view>
+    </view>
+    <view class="sub__bar">
+      <view class="sub__bar-track"></view>
+      <view class="sub__bar-zone sub__bar-zone--low"></view>
+      <view class="sub__bar-zone sub__bar-zone--ok"></view>
+      <view class="sub__bar-zone sub__bar-zone--high"></view>
+      <view class="sub__bar-marker" style="left: {{bsMarkerLeft}}%"></view>
+    </view>
+    <view class="sub__bar-labels">
+      <text class="mono">3.9</text>
+      <text class="mono">6.1</text>
+      <text class="mono">7.0</text>
+    </view>
+  </view>
+
+  <!-- ============== 快捷操作 ============== -->
+  <view class="quick">
+    <navigator url="/pages/submit/submit" class="quick__item" open-type="switchTab">
+      <view class="quick__icon quick__icon--warm">
+        <text class="quick__sym">＋</text>
+      </view>
+      <text class="serif quick__txt">添加记录</text>
+      <text class="eyebrow quick__sub">TAP  TO  LOG</text>
     </navigator>
-    <navigator url="/pages/chat/chat" class="action-item" open-type="switchTab">
-      <view class="action-icon">
-        <text class="icon">💬</text>
+    <navigator url="/pages/chat/chat" class="quick__item" open-type="switchTab">
+      <view class="quick__icon quick__icon--cool">
+        <text class="quick__sym">◐</text>
       </view>
-      <text class="action-text">健康咨询</text>
+      <text class="serif quick__txt">AI 咨询</text>
+      <text class="eyebrow quick__sub">ASK  THE  DOCTOR</text>
     </navigator>
   </view>
 
-  <!-- 建议卡片 -->
-  <view class="advice-cards">
-    <!-- 饮食建议 -->
-    <view class="advice-card">
-      <view class="advice-header">
-        <text class="advice-title">饮食建议</text>
-        <text class="advice-icon">🍎</text>
-      </view>
-      <view class="advice-content">
-        <text>{{dietAdvice || '保持均衡饮食，多吃蔬菜水果，控制盐分和糖分摄入'}}</text>
-      </view>
+  <!-- ============== 建议栏 ============== -->
+  <view class="advice">
+    <view class="advice__head">
+      <text class="eyebrow">DAILY  DOSSIER  /  今日健康建议</text>
     </view>
 
-    <!-- 运动建议 -->
-    <view class="advice-card">
-      <view class="advice-header">
-        <text class="advice-title">运动建议</text>
-        <text class="advice-icon">🏃</text>
+    <view class="advice__grid">
+      <view class="advice__item card card--soft">
+        <text class="serif advice__num">D-1</text>
+        <text class="serif advice__title">饮 食</text>
+        <text class="advice__body">{{dietAdvice || '保持均衡，多蔬菜、控盐、控糖，\n细嚼慢咽七分饱。'}}</text>
       </view>
-      <view class="advice-content">
-        <text>{{exerciseAdvice || '建议每天进行30分钟中等强度运动，如散步、太极拳等'}}</text>
+
+      <view class="advice__item card card--soft">
+        <text class="serif advice__num">D-2</text>
+        <text class="serif advice__title">运 动</text>
+        <text class="advice__body">{{exerciseAdvice || '每日 30 分钟中等强度运动，\n散步、太极、游泳皆可。'}}</text>
       </view>
     </view>
   </view>
+
+  <!-- ============== 底部入口：分析 ============== -->
+  <navigator url="/pages/analysis/analysis" class="footer-link">
+    <text class="serif footer-link__txt">查看完整慢性病趋势分析</text>
+    <text class="footer-link__arr">→</text>
+  </navigator>
 </view>

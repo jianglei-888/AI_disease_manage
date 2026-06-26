@@ -1,54 +1,60 @@
-<view class="container">
-  <view class="register-form">
-    <view class="title">注册</view>
-    
-    <view class="form-item">
-      <view class="label">用户名</view>
-      <input 
-        class="input" 
-        placeholder="请输入用户名" 
-        bindinput="bindUsernameInput"
-        value="{{username}}"
-      />
+<view class="container container--padded">
+  <!-- 顶部 -->
+  <view class="masthead">
+    <view class="masthead__row">
+      <text class="eyebrow">NEW  FILE  /  新建档案</text>
+      <text class="eyebrow">02 OF  N</text>
     </view>
-    
-    <view class="form-item">
-      <view class="label">邮箱</view>
-      <input 
-        class="input" 
-        placeholder="请输入邮箱" 
-        bindinput="bindEmailInput"
-        value="{{email}}"
-      />
+    <view class="hairline hairline--dashed" style="margin-top: 18rpx;"></view>
+  </view>
+
+  <view class="hero">
+    <view class="hero__bignum serif">02</view>
+    <view class="hero__copy">
+      <text class="eyebrow">— APPLY FOR YOUR FILE</text>
+      <text class="hero__title serif">建\n\n立\n\n新\n\n档\n\n案</text>
+      <text class="hero__desc">几个字段，\n开启你私人的健康记录。</text>
     </view>
-    
-    <view class="form-item">
-      <view class="label">密码</view>
-      <input 
-        class="input" 
-        placeholder="请输入密码" 
-        password 
-        bindinput="bindPasswordInput"
-        value="{{password}}"
-      />
+  </view>
+
+  <view class="form">
+    <view class="form__row">
+      <text class="form__label eyebrow">USERNAME  /  用户名</text>
+      <view class="field">
+        <input class="form__input" placeholder="如：早晨八点" placeholder-style="color:#6E6A62; letter-spacing:2rpx;" bindinput="bindUsernameInput" value="{{username}}" />
+      </view>
     </view>
-    
-    <view class="form-item">
-      <view class="label">确认密码</view>
-      <input 
-        class="input" 
-        placeholder="请再次输入密码" 
-        password 
-        bindinput="bindConfirmPasswordInput"
-        value="{{confirmPassword}}"
-      />
+
+    <view class="form__row">
+      <text class="form__label eyebrow">EMAIL  /  邮箱</text>
+      <view class="field">
+        <input class="form__input" placeholder="name@domain.com" placeholder-style="color:#6E6A62; letter-spacing:2rpx;" bindinput="bindEmailInput" value="{{email}}" />
+      </view>
     </view>
-    
-    <button class="register-btn" bindtap="handleRegister">注册</button>
-    
+
+    <view class="form__row">
+      <text class="form__label eyebrow">PASSPHRASE  /  设置密码</text>
+      <view class="field">
+        <input class="form__input" password placeholder="至少 6 位" placeholder-style="color:#6E6A62; letter-spacing:2rpx;" bindinput="bindPasswordInput" value="{{password}}" />
+      </view>
+    </view>
+
+    <view class="form__row">
+      <text class="form__label eyebrow">CONFIRM  /  再次输入</text>
+      <view class="field">
+        <input class="form__input" password placeholder="••••••••" placeholder-style="color:#6E6A62; letter-spacing:4rpx;" bindinput="bindConfirmPasswordInput" value="{{confirmPassword}}" />
+      </view>
+    </view>
+
+    <button class="btn btn--primary" style="margin-top: 48rpx;" bindtap="handleRegister">创 建 档 案</button>
+
     <view class="links">
-      <text>已有账号？</text>
-      <navigator url="/pages/login/login" class="link">去登录</navigator>
+      <text class="links__hint">已经有账号？</text>
+      <navigator url="/pages/login/login" class="links__action">前往登录 →</navigator>
     </view>
+  </view>
+
+  <view class="footnote">
+    <text class="eyebrow">© VITALS  ·  MIDNIGHT CLINIC</text>
   </view>
 </view>
